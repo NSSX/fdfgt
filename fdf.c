@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/30 17:04:49 by avella            #+#    #+#             */
+/*   Updated: 2016/01/30 17:05:02 by avella           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 { 
   char *line;
   int i;
@@ -9,12 +21,12 @@ int main(int argc, char **argv)
   char **tab;
 
   i = 0;
-  if(error(argc) == 0)
+  if (error(argc) == 0)
     return (0);
   mystruct = give(mystruct);
   legend(mystruct->mlx, mystruct->win);  
   tab = create_tab(argv[1], tab);
-  while(tab[i])
+  while (tab[i])
     i++;
   coord = create_coord_tab(tab, coord, i);
   mystruct = give2(mystruct, i, tab, coord);
