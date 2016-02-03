@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftfunc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/02/03 16:19:28 by avella            #+#    #+#             */
+/*   Updated: 2016/02/03 16:21:12 by avella           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 static char		*ft_join(char const *s1, char const *s2, int len1, int len2)
 {
-	char *join;
-	int i;
-	int j;
+	char	*join;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -24,11 +36,11 @@ static char		*ft_join(char const *s1, char const *s2, int len1, int len2)
 	return (join);
 }
 
-char	*ft_strjoins(char const *s1, char const *s2)
+char			*ft_strjoins(char const *s1, char const *s2)
 {
-	int len1;
-	int len2;
-	char *join;
+	int		len1;
+	int		len2;
+	char	*join;
 
 	if (!s1 || !s2)
 		return (NULL);

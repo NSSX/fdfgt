@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eventml.c                                          :+:      :+:    :+:   */
+/*   last.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/03 16:13:49 by avella            #+#    #+#             */
-/*   Updated: 2016/02/03 16:13:53 by avella           ###   ########.fr       */
+/*   Created: 2016/01/30 17:04:19 by avella            #+#    #+#             */
+/*   Updated: 2016/02/03 16:12:51 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		event_mlx(int keycode, t_struct *param)
+t_event	*give_myevent(void)
 {
-	if (keycode == 53)
-		exit(1);
-	img_move(keycode, param);
-	img_zoom(keycode, param);
-	img_other_view(keycode, param);
-	img_other(keycode, param);
-	return (0);
+	t_event *myevent;
+
+	myevent = (t_event *)malloc(sizeof(t_event) * 4);
+	myevent->xd = 500;
+	myevent->yd = 300;
+	return (myevent);
+}
+
+int		error(int argc)
+{
+	if (argc != 2)
+	{
+		printf("Bug arg");
+		return (0);
+	}
+	return (1);
 }

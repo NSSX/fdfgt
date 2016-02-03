@@ -6,7 +6,7 @@
 /*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 17:03:15 by avella            #+#    #+#             */
-/*   Updated: 2016/01/30 17:03:43 by avella           ###   ########.fr       */
+/*   Updated: 2016/02/03 16:22:31 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_struct	*give(t_struct *mystruct)
 	return (mystruct);
 }
 
-int		give_maxline(char **tab)
+int			give_maxline(char **tab)
 {
 	int maxline;
 	int index;
@@ -40,12 +40,12 @@ int		give_maxline(char **tab)
 t_struct	*give2(t_struct *mystruct, int i, char **tab, char ***coord)
 {
 	mystruct->i = i;
-	mystruct->maxline = give_maxline(tab);;
+	mystruct->maxline = give_maxline(tab);
 	mystruct->coord = coord;
 	return (mystruct);
 }
 
-t_img	*give_img(void *mlx)
+t_img		*give_img(void *mlx)
 {
 	t_img *myimg;
 
@@ -55,17 +55,17 @@ t_img	*give_img(void *mlx)
 	return (myimg);
 }
 
-void	legend(void *mlx, void *win)
+void		legend(void *mlx, void *win)
 {
-	int sizeH;
-	int sizeW;
+	int sh;
+	int sw;
 
-	sizeH = HEIGTH /3;
-	sizeW = WIDTH / 3;
-	mlx_string_put(mlx, win, sizeH, sizeW, 0x00FFFF, "HOW TO USE ?");
-	mlx_string_put(mlx, win, sizeH, sizeW + 40, 0x00FFFF, "Q : ZOOM + | ZOOM - : E");
-	mlx_string_put(mlx, win, sizeH, sizeW + 80, 0x00FFFF, "A : MOVE LEFT | MOVE RIGHT : D");
-	mlx_string_put(mlx, win, sizeH, sizeW + 120, 0x00FFFF, "W : MOVE UP | MOVE DOWN : S");
-	mlx_string_put(mlx, win, sizeH, sizeW + 160, 0x00FFFF, "T : SMALL SCALE");
-	mlx_string_put(mlx, win, sizeH, sizeW + 210, 0x00FFFF, "PRESS RETURN FOR START");
+	sh = HEIGTH / 3;
+	sw = WIDTH / 3;
+	mlx_string_put(mlx, win, sh, sw, 0x00FFFF, "HOW TO USE ?");
+	mlx_string_put(mlx, win, sh, sw + 40, 0x00FFFF, "Q : ZOOM + | ZOOM - : E");
+	mlx_string_put(mlx, win, sh, sw + 80, 0x00FFFF, "A:MOVE LEFT|MOVE RIGHT:D");
+	mlx_string_put(mlx, win, sh, sw + 120, 0x00FFFF, "W:MOVE UP | MOVE DOWN:S");
+	mlx_string_put(mlx, win, sh, sw + 160, 0x00FFFF, "T : SMALL SCALE");
+	mlx_string_put(mlx, win, sh, sw + 210, 0x00FFFF, "PRESS RETURN FOR START");
 }

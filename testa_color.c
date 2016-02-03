@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   testa_color.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/02/03 16:28:02 by avella            #+#    #+#             */
+/*   Updated: 2016/02/03 16:32:06 by avella           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int		testa(int x1,int y1,int x2,int y2)
+int		testa(int x1, int y1, int x2, int y2)
 {
-	if ((x1 >= WIDTH) || (x2 >= WIDTH) || (y1 >= WIDTH) || (y2 >= WIDTH) || (y1 <= 0) || (y2 <= 0) || (x1 <= 0) || (x2 <= 0))
+	if ((x1 >= WIDTH) || (x2 >= WIDTH) || (y1 >= WIDTH) ||
+		(y2 >= WIDTH) || (y1 <= 0) || (y2 <= 0) || (x1 <= 0) || (x2 <= 0))
 		return (0);
 	return (1);
 }
@@ -58,8 +71,9 @@ void	first_part(char ***coord, int index, t_struct *param)
 	temp->val1 = ft_atoi(coord[index][2]);
 	temp->val2 = ft_atoi(coord[index + 1][2]);
 	temp->color = give_color(temp->val1, temp->val2);
-	if (testa(temp->x1,temp->y1,temp->x2,temp->y2))
-		draw_line_on_img(param->img,temp->x1, temp->y1, temp->x2, temp->y2, temp->color);
+	if (testa(temp->x1, temp->y1, temp->x2, temp->y2))
+		draw_line_on_img(param->img, temp->x1,
+						temp->y1, temp->x2, temp->y2, temp->color);
 	free(temp);
 }
 
@@ -75,7 +89,8 @@ void	second_part(char ***coord, int index, int maxline, t_struct *param)
 	temp->val1 = ft_atoi(coord[index][2]);
 	temp->val2 = ft_atoi(coord[index + maxline + 1][2]);
 	temp->color = give_color(temp->val1, temp->val2);
-	if (testa(temp->x1,temp->y1,temp->x2,temp->y2))
-		draw_line_on_img(param->img,temp->x1, temp->y1, temp->x2, temp->y2, temp->color);
+	if (testa(temp->x1, temp->y1, temp->x2, temp->y2))
+		draw_line_on_img(param->img, temp->x1,
+						temp->y1, temp->x2, temp->y2, temp->color);
 	free(temp);
 }
