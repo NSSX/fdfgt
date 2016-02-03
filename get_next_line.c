@@ -3,120 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 13:20:06 by tfleming          #+#    #+#             */
-/*   Updated: 2015/01/15 20:20:10 by tfleming         ###   ########.fr       */
+/*   Created: 2016/01/06 15:15:22 by avella            #+#    #+#             */
+/*   Updated: 2016/02/01 18:38:55 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-/*
-** for deal_with_returns, the code was too atrocious with all the
-** (*stock)s, so I just pass it and also the pointer to it.
-*/
-
-/*
-** increase_spill_size:
-** increases the size of spill by at least BUF_SIZE
-** returns non-zero if error
-*/
-
-/*
-** for better performance, replace read line with:
-** read(fd, stocks[fd]->spill + stocks[fd]->lu
-** , stocks[fd]->length - stocks[fd]->lu);
-*/
-
-static int		end_of_line(t_stock *stock)
+int		lineorend(char *chaine)
 {
-	while (stock->lu > stock->line_end - stock->spill
-			&& *(stock->line_end) != '\n')
-		stock->line_end++;
-	if (*(stock->line_end) == '\n')
-		return (stock->lu > stock->line_end - stock->spill);
-	return (0);
-}
+	int result;
+	int i;
 
-static int		increase_spill_size(t_stock *stock)
-{
-	char		*new_spill;
-	long		new_size;
-
-	new_size = stock->length * SPILL_MULT;
-	if (new_size < stock->length + BUF_SIZE)
-		new_size += BUF_SIZE;
-	new_spill = malloc((new_size + 1) * sizeof(char));
-	if (!new_spill)
-		return (1);
-	ft_strcpy(new_spill, stock->spill);
-	new_spill[new_size] = '\0';
-	stock->line_end = new_spill + (stock->line_end - stock->spill);
-	free(stock->spill);
-	stock->spill = new_spill;
-	stock->length = new_size;
-	return (0);
-}
-
-static int		setup(t_stock **stock)
-{
-	*stock = malloc(sizeof(t_stock));
-	if (!*stock)
-		return (1);
-	(*stock)->length = BUF_SIZE;
-	(*stock)->spill = malloc(((*stock)->length + 1) * sizeof(char));
-	if (!(*stock)->spill)
-		return (1);
-	(*stock)->spill[(*stock)->length] = '\0';
-	(*stock)->lu = 0;
-	(*stock)->line_end = (*stock)->spill;
-	(*stock)->read_ret = 1;
-	return (0);
-}
-
-static int		deal_with_returns(t_stock **pointer_to_stock
-									, t_stock *stock, char **line)
-{
-	if (stock->read_ret < 0)
-		return (-1);
-	*line = ft_strsub(stock->spill, 0, stock->line_end - stock->spill);
-	if ((stock->read_ret <= 0 || stock->lu <= 0))
+	i = 0;
+	result = 4;
+	while (chaine[i] != '\0' && result == 4 && chaine[i] != EOF)
 	{
-		if (stock->spill)
-			free(stock->spill);
-		free(stock);
-		*pointer_to_stock = NULL;
-		return (0);
+		if (chaine[i] == '\n')
+			result = 1;
+		i++;
 	}
-	stock->lu += stock->spill - stock->line_end
-		- (stock->read_ret > 0
-			&& *(stock->line_end) == '\n'
-			&& stock->lu != stock->line_end - stock->spill);
-	ft_memcpy(stock->spill, stock->line_end + 1, stock->lu);
-	stock->line_end = stock->spill;
-	return (1);
+	if (i == 0)
+		result = 0;
+	else if (chaine[i] == EOF && result == 4)
+		result = 3;
+	else if (chaine[i] == '\0' && result == 4)
+		result = 3;
+	return (result);
 }
 
-int				get_next_line(int const fd, char **line)
+int		amalloc(char *chaine)
 {
-	static t_stock	*stocks[MAX_FD];
+	int i;
 
-	if (fd >= MAX_FD || fd < 0 || line == NULL)
-		return (-1);
-	if (stocks[fd] && stocks[fd]->read_ret == 0)
-		return (0);
-	if (!stocks[fd] && setup(&stocks[fd]))
-		return (-1);
-	while (stocks[fd]->read_ret > 0 && !((end_of_line(stocks[fd]))))
+	i = 0;
+	while (chaine[i] != '\n' && chaine[i] != '\0' && chaine[i] != EOF)
+		i++;
+	return (i);
+}
+
+int		give_thereturn(char *chaine, int ret)
+{
+	int thereturn;
+
+	thereturn = 4;
+	if (ret == -1)
+		thereturn = -1;
+	else if (lineorend(chaine) == 1)
+		thereturn = 1;
+	else if (lineorend(chaine) == 0)
+		thereturn = 0;
+	else if (lineorend(chaine) == 3 && ret == 0)
+		thereturn = 1;
+	return (thereturn);
+}
+
+char	**my_line(char **chaine, int fd, char **line)
+{
+	int i;
+	int mall;
+
+	i = 0;
+	mall = amalloc(chaine[fd]);
+	line[0] = ft_strnew(mall + 1);
+	while (i < mall)
 	{
-		while (stocks[fd]->lu + BUF_SIZE > stocks[fd]->length)
-			if (increase_spill_size(stocks[fd]))
-				return (-1);
-		stocks[fd]->read_ret = read(fd, stocks[fd]->spill + stocks[fd]->lu
-									, BUF_SIZE);
-		stocks[fd]->lu += stocks[fd]->read_ret;
+		line[0][i] = chaine[fd][i];
+		i++;
 	}
-	return (deal_with_returns(&stocks[fd], stocks[fd], line));
+	line[0][i] = '\0';
+	i = 0;
+	while (chaine[fd][i] != '\n' && chaine[fd][i] != '\0')
+		i++;
+	i++;
+	chaine[fd] = ft_strsub(chaine[fd], i, ft_strlen(chaine[fd]));
+	return (line);
+}
+
+int		get_next_line(int const fd, char **line)
+{
+	int			thereturn;
+	int			ret;
+	char		*buf;
+	static char	*chaine[256];
+
+	buf = ft_strnew(BUFF_SIZE + 1);
+	thereturn = 4;
+	if (fd < 0 || line == NULL || BUFF_SIZE < 1 || fd > 255)
+		return (-1);
+	if (!chaine[fd])
+		chaine[fd] = ft_strnew(BUFF_SIZE + 1);
+	while (thereturn == 4)
+	{
+		if ((ret = read(fd, buf, BUFF_SIZE)) >= 0)
+		{
+			buf[ret] = '\0';
+			chaine[fd] = ft_strjoin(chaine[fd], buf);
+		}
+		if (ret == -1)
+			return (-1);
+		thereturn = give_thereturn(chaine[fd], ret);
+	}
+	ft_strdel(&buf);
+	my_line(chaine, fd, line);
+	return (thereturn);
 }

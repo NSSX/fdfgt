@@ -2,7 +2,7 @@
 # define STRUCT_H
 #include <mlx.h>
 #include <stdio.h>
-#include "libft/libft.h"
+#include "libft/includes/libft.h"
 //Const fill_rect
 #define RECTX 10
 #define RECTY 10

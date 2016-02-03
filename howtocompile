@@ -1,1 +1,2 @@
 gcc *.c -lmlx -framework OpenGL -framework AppKit libft.a
+gcc *.c -lmlx -framework OpenGL -framework AppKit libft.a -I libft/includes

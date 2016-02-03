@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 14:24:33 by tfleming          #+#    #+#             */
-/*   Updated: 2015/01/15 15:18:42 by tfleming         ###   ########.fr       */
+/*   Created: 2016/01/06 19:00:47 by avella            #+#    #+#             */
+/*   Updated: 2016/01/06 19:02:23 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
-# include <stdlib.h>
+# define BUFF_SIZE 100
 # include <unistd.h>
-# include "libft/libft.h"
-# define BUF_SIZE		1
-# define SPILL_MULT		2
-# define MAX_FD			1000
+# include <stdio.h>
+# include <stdlib.h>
+# include "libft.h"
 
-typedef struct		s_stock
-{
-	char			*spill;
-	long			length;
-	long			lu;
-	int				read_ret;
-	char			*line_end;
-}					t_stock;
-
-int					get_next_line(int fd, char **line);
-
+int get_next_line(int const fd, char **line);
 #endif
