@@ -6,7 +6,7 @@
 /*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 17:02:19 by avella            #+#    #+#             */
-/*   Updated: 2016/01/30 17:02:42 by avella           ###   ########.fr       */
+/*   Updated: 2016/02/03 16:08:05 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	**create_tab(char *argv, char **tab)
 {
-	char *line;
-	char *yt;
-	int fd;
-	int ret;
+	char	*line;
+	char	*yt;
+	int		fd;
+	int		ret;
 
 	fd = 0;
 	ret = 0;
 	fd = open(argv, O_RDONLY);
 	line = (char *)malloc(sizeof(char) * 2);
-	while ((ret = get_next_line(fd,&yt)))
+	while ((ret = get_next_line(fd, &yt)))
 	{
-		line = ft_strjoins(line,yt);
+		line = ft_strjoins(line, yt);
 		line = ft_strjoins(line, " \n ");
 	}
 	tab = ft_strsplit(line, ' ');
