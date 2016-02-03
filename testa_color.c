@@ -72,8 +72,7 @@ void	first_part(char ***coord, int index, t_struct *param)
 	temp->val2 = ft_atoi(coord[index + 1][2]);
 	temp->color = give_color(temp->val1, temp->val2);
 	if (testa(temp->x1, temp->y1, temp->x2, temp->y2))
-		draw_line_on_img(param->img, temp->x1,
-						temp->y1, temp->x2, temp->y2, temp->color);
+		draw_line_on_img(param->img, temp, temp->color);
 	free(temp);
 }
 
@@ -90,7 +89,6 @@ void	second_part(char ***coord, int index, int maxline, t_struct *param)
 	temp->val2 = ft_atoi(coord[index + maxline + 1][2]);
 	temp->color = give_color(temp->val1, temp->val2);
 	if (testa(temp->x1, temp->y1, temp->x2, temp->y2))
-		draw_line_on_img(param->img, temp->x1,
-						temp->y1, temp->x2, temp->y2, temp->color);
+		draw_line_on_img(param->img, temp, temp->color);
 	free(temp);
 }

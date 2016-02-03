@@ -90,7 +90,7 @@ typedef struct          s_line
 }                                       t_line;
 
 
-void draw_line_on_img(t_img *myimg,float xi, float yi, float xf, float yf, int color);
+void draw_line_on_img(t_img *myimg, t_temp *temp, int color);
 void place_img(t_struct *param, float xd, float yd);
 void img_move(int keycode, t_struct *param);
 void img_zoom(int keycode, t_struct *param);
