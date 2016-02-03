@@ -6,7 +6,7 @@
 /*   By: avella <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 16:18:33 by avella            #+#    #+#             */
-/*   Updated: 2016/02/03 16:19:04 by avella           ###   ########.fr       */
+/*   Updated: 2016/02/03 16:44:51 by avella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	draw_with_tab_on_img(char ***coord, int i, int maxline, t_struct *param)
 	{
 		if (index + 1 < i)
 		{
-			if(coord[index + 1][2][0] != '\n')
+			if (coord[index + 1][2][0] != '\n')
 				first_part(coord, index, param);
 			else
 				futurindex++;
 		}
 		if (index + maxline + 1 < i)
 		{
-			if(coord[index + maxline + 1][2][0] != '\n')
+			if (coord[index + maxline + 1][2][0] != '\n')
 				second_part(coord, index, maxline, param);
 			else
 				futurindex++;
@@ -64,18 +64,18 @@ void	draw_with_tab_on_img(char ***coord, int i, int maxline, t_struct *param)
 	}
 }
 
-void	my_pixel_put_to_image(t_img *myimg,int x, int y, int color)
+void	my_pixel_put_to_image(t_img *myimg, int x, int y, int color)
 {
+	int				i;
+	unsigned char	color1;
+	unsigned char	color2;
+	unsigned char	color3;
 
-	int i;
-	unsigned char color1;
-	unsigned char color2;
-	unsigned char color3;
-	myimg->data = mlx_get_data_addr(myimg->img_ptr, &myimg->bpp, &myimg->sizeline, &myimg->endian);
-
-	myimg->data[y * myimg->sizeline + x * myimg->bpp / 8 ] = color % 256;
+	myimg->data = mlx_get_data_addr(myimg->img_ptr,
+					&myimg->bpp, &myimg->sizeline, &myimg->endian);
+	myimg->data[y * myimg->sizeline + x * myimg->bpp / 8] = color % 256;
 	color /= 256;
 	myimg->data[y * myimg->sizeline + x * myimg->bpp / 8 + 1] = color % 256;
 	color /= 256;
-	myimg->  data[y * myimg->sizeline + x * myimg->bpp / 8 + 2] = color % 256;
+	myimg->data[y * myimg->sizeline + x * myimg->bpp / 8 + 2] = color % 256;
 }
