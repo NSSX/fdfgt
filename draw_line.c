@@ -59,11 +59,11 @@ t_line	*norme_line(t_line *line)
 	return (line);
 }
 
-void	draw_line_on_img(t_img *myimg, float xi, float yi, float xf, float yf, int color)
+void	draw_line_on_img(t_img *myimg, t_temp *temp, int color)
 {
 	t_line *line;
 
-	line = give_line(xi, yi, xf, yf);
+	line = give_line(temp->x1, temp->y1, temp->x2, temp->y2);
 	my_pixel_put_to_image(myimg, line->x, line->y, color);
 	if (line->dx > line->dy)
 	{
